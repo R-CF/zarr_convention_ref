@@ -2,8 +2,8 @@
 
 - **UUID**: d89b30cf-ed8c-43d5-9a16-b492f0cd8786
 - **Name**: "ref"
-- **Schema URL**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json"
-- **Spec URL**: "https://github.com/zarr-conventions/template/blob/v1/README.md"
+- **Schema URL**: "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json"
+- **Spec URL**: "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md"
 - **Scope**: Array, Group
 - **Extension Maturity Classification**: Proposal
 - **Owner**: @pvanlaake
@@ -26,8 +26,8 @@ The convention must be registered in `zarr_conventions`:
 {
   "zarr_conventions": [
     {
-      "schema_url": "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json",
-      "spec_url": "https://github.com/zarr-conventions/template/blob/v1/README.md",
+      "schema_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json",
+      "spec_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md",
       "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786",
       "name": "ref",
       "description": "External referencing of Zarr objects"
@@ -84,6 +84,8 @@ Name of an item in the `zarr.json` file of the referenced `group` or `array`. Th
     "zarr_conventions": [
       {
         "name": "ref",
+        "schema_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json",
+        "spec_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md",
         "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
       }
     ],
@@ -101,6 +103,8 @@ Name of an item in the `zarr.json` file of the referenced `group` or `array`. Th
     "zarr_conventions": [
       {
         "name": "ref",
+        "schema_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json",
+        "spec_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md",
         "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
       }
     ],
@@ -119,6 +123,8 @@ Name of an item in the `zarr.json` file of the referenced `group` or `array`. Th
     "zarr_conventions": [
       {
         "name": "ref",
+        "schema_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json",
+        "spec_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md",
         "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
       }
     ],

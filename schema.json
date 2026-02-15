@@ -40,12 +40,12 @@
       "properties": {
         "schema_url": {
           "type": "string",
-          "const": "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json",
+          "const": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json",
           "description": "URL to the JSON Schema definition for this convention"
         },
         "spec_url": {
           "type": "string",
-          "const": "https://github.com/zarr-conventions/template/blob/v1/README.md",
+          "const": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md",
           "description": "URL to the full specification document"
         },
         "uuid": {
