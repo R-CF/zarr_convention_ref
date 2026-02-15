@@ -1,33 +1,25 @@
-# Template Convention Metadata
+# External Reference Convention
 
-- **UUID**: 00000000-0000-0000-0000-000000000000
-- **Name**: Template
+- **UUID**: d89b30cf-ed8c-43d5-9a16-b492f0cd8786
+- **Name**: "ref"
 - **Schema URL**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json"
 - **Spec URL**: "https://github.com/zarr-conventions/template/blob/v1/README.md"
 - **Scope**: Array, Group
 - **Extension Maturity Classification**: Proposal
-- **Owner**: @your-github-handle, @another-github-handle
+- **Owner**: @pvanlaake
 
 ## Description
 
-This convention defines [brief description of what this convention does]. All properties use the `template:` namespace prefix (or nested `template` object) and are placed at the root `attributes` level following the [Zarr Conventions Specification](https://github.com/zarr-conventions/zarr-conventions-spec).
+This convention defines a mechanism to reference external objects from a referencing array or group. "External" means that the referenced object is defined in another group or array, either in the store of the referencing group or array or in another store. The referenced object may be an array, a group, or an item in a `zarr.json` file.
 
-[Add more detailed description of the convention, its purpose, and how it fits into the Zarr ecosystem. Explain what problem it solves and how it should be used.]
-
-- Examples:
-  - [Convention metadata only](examples/minimal_example.json)
-  - [Key-prefixed pattern (recommended)](examples/key_prefixed_example.json)
-  - [Nested pattern](examples/nested_example.json)
+The interpretation of the referenced object is application-specific and not defined in this convention.
 
 ## Motivation
 
-- **First benefit**: Explanation of the first key benefit this convention provides
-- **Second benefit**: Explanation of the second key benefit
-- **Third benefit**: Explanation of additional benefits
-- **Use case alignment**: How this convention aligns with common use cases in the domain
+- Uniform description of Zarr objects defined externally to the referencing Zarr object.
+- External referencing allows for the efficient decomposition of complex objects, avoiding repetitive definition.
 
 ## Convention Registration
-
 The convention must be registered in `zarr_conventions`:
 
 ```json
@@ -36,128 +28,109 @@ The convention must be registered in `zarr_conventions`:
     {
       "schema_url": "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json",
       "spec_url": "https://github.com/zarr-conventions/template/blob/v1/README.md",
-      "uuid": "00000000-0000-0000-0000-000000000000",
-      "name": "template:",
-      "description": "Brief description of the convention"
+      "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786",
+      "name": "ref",
+      "description": "External referencing of Zarr objects"
     }
   ]
 }
 ```
 
-## Applicable To
-
+## Application
 This convention can be used with these parts of the Zarr hierarchy:
 
 - [x] Group
 - [x] Array
 
 ## Properties
+The property is placed at the location in the attributes of the referencing Zarr object where the referenced object is required.
 
-All properties are placed at the root `attributes` level. To avoid attribute name collisions with other conventions, this convention supports the following pattern [remove the pattern irrelevant for this convention]:
+| Field Name | Type                      | Description                      | Required    |
+| ---------- | ------------------------- | -------------------------------- | ----------- |
+| ref        | [Ref object](#ref-object) | Reference to an external object. | Yes         |
 
-#### 1. Key-Prefixed Pattern (Recommended)
+### Ref object
+The `ref` object defines all the properties of a reference to an external object.
 
-Individual attributes are prefixed with `template:`. This is the recommended approach as it enables better composability - other conventions can extend objects defined by this convention.
+| Field Name | Type   | Description                                 | Required |
+| ---------- | ------ | ------------------------------------------- | -------- |
+| uri        | string | URI to another store.                       | No       |
+| array      | string | Path to an array in the store.              | No       |
+| group      | string | Path to a group in the store.               | No       |
+| attribute  | string | Name of an attribute of the array or group. | No       |
 
-**Convention metadata name**: `template:`
+Only one of `group` or `array` MUST be provided. `uri` MUST NOT be provided if the referenced object is located in the current store.
 
-| Field Name           | Type                      | Description                                  |
-| -------------------- | ------------------------- | -------------------------------------------- |
-| template:new_field   | string                    | **REQUIRED**. Describe the required field... |
-| template:xyz         | [XYZ Object](#xyz-object) | Describe the field...                        |
-| template:another_one | \[number]                 | Describe the field...                        |
+#### uri
+The Uniform Resource Identifier of an external Zarr store, compliant with [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). It is recommended to use a locatable URI for Zarr stores that are publicly accessible.
 
-**Example**:
+This field MUST NOT be provided if the referenced object is located in the current Zarr store.
 
-```json
-{
-  "attributes": {
-    "zarr_conventions": [{ "name": "template:", "spec_url": "..." }],
-    "template:new_field": "example value",
-    "template:xyz": { "x": 1.0, "y": 2.0, "z": 3.0 }
-  }
-}
+#### array
+Path to a referenced array, either in the current store or in the store identified by the `uri` field.
+
+#### group
+Path to a referenced group, either in the current store or in the store identified by the `uri` field.
+
+#### attribute
+Name of an item in the `zarr.json` file of the referenced `group` or `array`. The `"attribute"` value must be fully-qualified if the referenced attribute is nested, for example `"attribute": "attributes/object/property"`
+
+## Examples
+
+#### Reference to an array in the current store 
 ```
-
-#### 2. Nested Pattern
-
-All convention properties are nested under a single `template` key.
-
-**Convention metadata name**: `template`
-
-| Field Name | Type                                | Description                                  |
-| ---------- | ----------------------------------- | -------------------------------------------- |
-| template   | [Template Object](#template-object) | **REQUIRED**. Template convention properties |
-
-**Example**:
-
-```json
 {
   "attributes": {
-    "zarr_conventions": [{ "name": "template", "spec_url": "..." }],
-    "template": {
-      "new_field": "example value",
-      "xyz": { "x": 1.0, "y": 2.0, "z": 3.0 }
+    "zarr_conventions": [
+      {
+        "name": "ref",
+        "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
+      }
+    ],
+    "ref": {
+      "array": "/path/to/array"
     }
   }
 }
 ```
 
-### Template Object
+#### Reference to an attribute in a group in the current store 
+```
+{
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "name": "ref",
+        "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
+      }
+    ],
+    "ref": {
+      "group": "/path/to/group",
+      "attribute": "attributes/interesting_thing"
+    }
+  }
+}
+```
 
-When using the nested pattern, all properties are contained in the `template` object:
+#### Reference to an array in a different store 
+```
+{
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "name": "ref",
+        "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
+      }
+    ],
+    "ref": {
+      "uri": "https://data.earthdatahub.destine.eu/public/test-dataset-v0.zarr",
+      "array": "year"
+    }
+  }
+}
+```
 
-| Field Name  | Type                      | Description                                  |
-| ----------- | ------------------------- | -------------------------------------------- |
-| new_field   | string                    | **REQUIRED**. Describe the required field... |
-| xyz         | [XYZ Object](#xyz-object) | Describe the field...                        |
-| another_one | \[number]                 | Describe the field...                        |
-
-### Additional Field Information
-
-#### new_field (template:new_field or template.new_field)
-
-This is a much more detailed description of the field `new_field`...
-
-### XYZ Object
-
-This is the introduction for the purpose and the content of the XYZ Object...
-
-| Field Name | Type   | Description                                  |
-| ---------- | ------ | -------------------------------------------- |
-| x          | number | **REQUIRED**. Describe the required field... |
-| y          | number | **REQUIRED**. Describe the required field... |
-| z          | number | **REQUIRED**. Describe the required field... |
-
-## Known Implementations
-
-This section helps potential implementers assess the convention's maturity and adoption, and provides a way for the community to collaborate on future revisions.
-
-### Libraries and Tools
-
-- **[Library/Tool Name](https://link-to-repo)** - Brief description of the implementation
-  - Language: Python/JavaScript/Rust/etc.
-  - Status: Experimental/Stable/Production
-  - Maintainer: @github-handle
-  - Since: Version X.Y or Date
-
-- **[Another Implementation](https://link)** - Description
-  - Language: Language
-  - Status: Status
-  - Maintainer: @handle
-  - Since: Version/Date
-
-### Datasets Using This Convention
-
-- **[Dataset Name](https://link-to-dataset)** - Description of the dataset and how it uses this convention
-- **[Another Dataset](https://link)** - Description
-
-### Resources
-
-- Tutorials, blog posts, or other resources demonstrating this convention
-- Community discussions or working groups
-
-_If you implement or use this convention, please add your implementation to this list by submitting a pull request._
+_If you implement or use this convention, please add your implementation to this list by opening an issue or submitting a pull request._
 
 ## Acknowledgements
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Template Convention",
-  "description": "Schema for Template Zarr convention, supporting both key-prefixed and nested namespace patterns",
+  "title": "External Reference Convention",
+  "description": "Schema for referencing external Zarr objects",
   "type": "object",
   "properties": {
     "zarr_format": {
@@ -23,17 +23,12 @@
           "contains": {
             "$ref": "#/$defs/conventionMetadata"
           }
+        },
+        "ref": {
+          "$ref": "#/$defs/ref"
         }
       },
-      "required": ["zarr_conventions"],
-      "oneOf": [
-        {
-          "$ref": "#/$defs/keyPrefixedAttributes"
-        },
-        {
-          "$ref": "#/$defs/nestedAttributes"
-        }
-      ]
+      "required": ["zarr_conventions", "ref"]
     }
   },
   "required": ["zarr_format", "node_type", "attributes"],
@@ -41,7 +36,7 @@
   "$defs": {
     "conventionMetadata": {
       "type": "object",
-      "description": "Template convention metadata object for use in zarr_conventions array",
+      "description": "Convention metadata object for use in zarr_conventions array",
       "properties": {
         "schema_url": {
           "type": "string",
@@ -55,17 +50,17 @@
         },
         "uuid": {
           "type": "string",
-          "const": "00000000-0000-0000-0000-000000000000",
+          "const": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786",
           "description": "UUID that permanently identifies this convention"
         },
         "name": {
           "type": "string",
-          "description": "Human-readable name of the convention. Should be 'template:' for key-prefixed pattern or 'template' for nested pattern"
+          "description": "ref"
         },
         "description": {
           "type": "string",
-          "const": "Template convention for demonstrating Zarr convention metadata structure",
-          "description": "Brief description of the convention's purpose and usage"
+          "const": "External Reference Convention",
+          "description": "Schema for referencing external Zarr objects"
         }
       },
       "anyOf": [
@@ -81,82 +76,32 @@
       ],
       "additionalProperties": false
     },
-    "conventionProperties": {
+    "ref": {
       "type": "object",
-      "description": "Template convention properties",
+      "description": "External Reference Convention",
       "properties": {
-        "new_field": {
+        "uri": {
           "type": "string",
-          "description": "REQUIRED. Describe the required field..."
+          "description": "Uniform Resource Identifier for an external store where the referenced object is defined."
         },
-        "xyz": {
-          "$ref": "#/$defs/xyzObject"
-        },
-        "another_one": {
-          "type": "array",
-          "description": "Array of numeric values",
-          "items": {
-            "type": "number"
-          }
-        }
-      },
-      "required": ["new_field"],
-      "additionalProperties": false
-    },
-    "xyzObject": {
-      "type": "object",
-      "description": "XYZ Object containing x, y, z coordinates",
-      "properties": {
-        "x": {
-          "type": "number",
-          "description": "REQUIRED. X coordinate value"
-        },
-        "y": {
-          "type": "number",
-          "description": "REQUIRED. Y coordinate value"
-        },
-        "z": {
-          "type": "number",
-          "description": "REQUIRED. Z coordinate value"
-        }
-      },
-      "required": ["x", "y", "z"],
-      "additionalProperties": false
-    },
-    "keyPrefixedAttributes": {
-      "type": "object",
-      "description": "Template convention using key-prefixed pattern (e.g., template:new_field)",
-      "properties": {
-        "zarr_conventions": true,
-        "template:new_field": {
+        "array": {
           "type": "string",
-          "description": "REQUIRED. Describe the required field..."
+          "description": "Path to the array where the referenced object is defined."
         },
-        "template:xyz": {
-          "$ref": "#/$defs/xyzObject"
+        "group": {
+          "type": "string",
+          "description": "Path to the group where the referenced object is defined."
         },
-        "template:another_one": {
-          "type": "array",
-          "description": "Array of numeric values",
-          "items": {
-            "type": "number"
-          }
+        "attribute": {
+          "type": "string",
+          "description": "Fully-qualified name of the attribute being referenced."
         }
       },
-      "required": ["template:new_field"],
-      "additionalProperties": true
-    },
-    "nestedAttributes": {
-      "type": "object",
-      "description": "Template convention using nested pattern (single 'template' key)",
-      "properties": {
-        "zarr_conventions": true,
-        "template": {
-          "$ref": "#/$defs/conventionProperties"
-        }
-      },
-      "required": ["template"],
-      "additionalProperties": true
+      "oneOf": [
+        { "required": ["array"] },
+        { "required": ["group"] }
+      ],
+      "additionalProperties": false
     }
   }
 }

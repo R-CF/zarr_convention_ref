@@ -1,0 +1,16 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "name": "ref",
+        "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
+      }
+    ],
+    "ref": {
+      "group": "/path/to/group",
+      "attribute": "attributes/interesting_thing"
+    }
+  }
+}

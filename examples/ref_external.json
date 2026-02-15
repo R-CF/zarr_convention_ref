@@ -1,0 +1,16 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "name": "ref",
+        "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
+      }
+    ],
+    "ref": {
+      "uri": "https://data.earthdatahub.destine.eu/public/test-dataset-v0.zarr",
+      "array": "year"
+    }
+  }
+}
