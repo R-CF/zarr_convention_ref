@@ -5,8 +5,8 @@
     "zarr_conventions": [
       {
         "name": "ref",
-        "schema_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json",
-        "spec_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md",
+        "schema_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/tags/v1/schema.json",
+        "spec_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/tags/v1/README.md",
         "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786"
       }
     ],

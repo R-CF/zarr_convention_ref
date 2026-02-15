@@ -12,3 +12,4 @@ Thumbs.db
 package-lock.json
 .Rproj.user
 zarr_convention_ref.Rproj
+.Rhistory
