@@ -95,6 +95,15 @@
         "attribute": {
           "type": "string",
           "description": "Fully-qualified name of the attribute being referenced."
+        },
+        "index": {
+          "type": "index",
+          "minimum": 0,
+          "description": "Element in JSON array pointed to by \"attribute\" to extract."
+        },
+        "name": {
+          "type": "string",
+          "description": "Value of the \"name\" property of the JSON sub-schema pointed to by \"attribute\" to extract."
         }
       },
       "oneOf": [

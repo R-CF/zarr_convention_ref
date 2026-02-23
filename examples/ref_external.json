@@ -12,7 +12,7 @@
     ],
     "ref": {
       "uri": "https://data.earthdatahub.destine.eu/public/test-dataset-v0.zarr",
-      "array": "year"
+      "array": "/year"
     }
   }
 }
