@@ -64,7 +64,7 @@ The `ref` object defines all the properties of a reference to an external object
 Only one of `group` or `array` MUST be provided. `uri` MUST NOT be provided if the referenced object is located in the current store.
 
 #### uri
-The Uniform Resource Identifier of an external Zarr store, compliant with [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). It is recommended to use a locatable URI for Zarr stores that are publicly accessible.
+The Uniform Resource Identifier of an external Zarr store, compliant with [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). It is recommended to use a locatable URI for a Zarr store that has the same level of accessibility as the referencing Zarr store.
 
 This field MUST NOT be provided if the referenced object is located in the current Zarr store.
 
@@ -81,9 +81,9 @@ Name of an item in the `zarr.json` file of the referenced `group` or `array`. Th
 If `"attribute"` is a JSON array, the 0-based index of the element to retrieve.
 
 #### name
-If `"attribute"` is a JSON array of composite JSON sub-schemas, retrieve the sub-schema whose `"name"` element has the value given.
+Retrieve the sub-schema whose `"name"` element has the value given, from the JSON object referred to by `"attribute"`.
 
-Fields `"index"` and `"name"` MUST NOT both be specified. Either one of the fields MAY only be specified if field `"attribute"` is specified and refers to a JSON array.
+Fields `"index"` and `"name"` MUST NOT both be specified. Either one of the fields MAY only be specified if field `"attribute"` is specified, otherwise they SHOULD be ignored.
 
 ## Examples
 
