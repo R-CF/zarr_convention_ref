@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/tags/v1/schema.json",
   "title": "External Reference Convention",
-  "description": "Schema for referencing external Zarr objects",
+  "description": "Schema for referencing Zarr objects external to the current Zarr object",
   "type": "object",
   "properties": {
     "zarr_format": {

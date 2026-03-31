@@ -30,7 +30,7 @@ The convention must be registered in `zarr_conventions`:
       "spec_url": "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md",
       "uuid": "d89b30cf-ed8c-43d5-9a16-b492f0cd8786",
       "name": "ref",
-      "description": "External referencing of Zarr objects"
+      "description": "Referencing Zarr objects external to the current Zarr object"
     }
   ]
 }
