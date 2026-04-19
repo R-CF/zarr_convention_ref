@@ -55,39 +55,23 @@ The `ref` object defines all the properties of a reference to an external object
 | Field Name | Type   | Description                                 | Required |
 | ---------- | ------ | ------------------------------------------- | -------- |
 | uri        | string | URI to another store.                       | No       |
-| array      | string | Path to an array in the store.              | Conditional |
-| group      | string | Path to a group in the store.               | Conditional |
-| attribute  | string | Name of an attribute of the array or group. | No       |
-| index      | integer | Index of an element in `"attribute"`        | No |
-| name       | string | Name of an attribute `"name"` in `"attribute"`. | No |
-
-Only one of `group` or `array` MUST be provided. `uri` MUST NOT be provided if the referenced object is located in the current store.
+| node       | string | Path to a group or array in the store.      | Yes |
+| attribute  | string | JSON pointer to an attribute of the array or group. | No       |
 
 #### uri
 The Uniform Resource Identifier of an external Zarr store, compliant with [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). It is recommended to use a locatable URI for a Zarr store that has the same level of accessibility as the referencing Zarr store.
 
-This field MUST NOT be provided if the referenced object is located in the current Zarr store.
+This field MUST NOT be provided if the referenced node is located in the current Zarr store.
 
-#### array
-Path to a referenced array, either in the current store or in the store identified by the `uri` field.
-
-#### group
-Path to a referenced group, either in the current store or in the store identified by the `uri` field.
+#### node
+Path to a referenced node, either in the current store or in the store identified by the `uri` field. If the node is in the current store, it is a relative path from the referencing node. If the node is in a Zarr store identified by the `uri` field, the path is absolute from the root of the referenced Zarr store.
 
 #### attribute
-Name of an item in the `zarr.json` file of the referenced `group` or `array`. The `"attribute"` value must be fully-qualified if the referenced attribute is nested, for example `"attribute": "attributes/object/property"`.
-
-#### index
-If `"attribute"` is a JSON array, the 0-based index of the element to retrieve.
-
-#### name
-Retrieve the sub-schema whose `"name"` element has the value given, from the JSON object referred to by `"attribute"`.
-
-Fields `"index"` and `"name"` MUST NOT both be specified. Either one of the fields MAY only be specified if field `"attribute"` is specified, otherwise they SHOULD be ignored.
+JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON pointer MUST follow the format described in [RFC 6901](https://datatracker.ietf.org/doc/html/rfc6901). The JSON pointer MUST therefore be fully-qualified and start from the root of the `zarr.json` file of the referenced node, for example `"attribute": "/attributes/object/property"`.
 
 ## Examples
 
-#### Reference to an array in the current store 
+#### Reference to a sibling array in the current store 
 ```
 {
   "attributes": {
@@ -99,7 +83,7 @@ Fields `"index"` and `"name"` MUST NOT both be specified. Either one of the fiel
       }
     ],
     "ref": {
-      "array": "/path/to/array"
+      "node": "../sibling_array"
     }
   }
 }
@@ -117,8 +101,8 @@ Fields `"index"` and `"name"` MUST NOT both be specified. Either one of the fiel
       }
     ],
     "ref": {
-      "group": "/path/to/group",
-      "attribute": "attributes/interesting_thing"
+      "node": "../parent_group",
+      "attribute": "/attributes/interesting_thing"
     }
   }
 }
@@ -137,7 +121,7 @@ Fields `"index"` and `"name"` MUST NOT both be specified. Either one of the fiel
     ],
     "ref": {
       "uri": "https://data.earthdatahub.destine.eu/public/test-dataset-v0.zarr",
-      "array": "/year"
+      "node": "/year"
     }
   }
 }
