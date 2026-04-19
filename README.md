@@ -71,7 +71,7 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
 
 ## Examples
 
-#### Reference to a sibling array in the current store 
+#### Reference to a sibling array of the referencing array
 ```
 {
   "attributes": {
@@ -89,7 +89,7 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
 }
 ```
 
-#### Reference to an attribute in a group in the current store 
+#### Reference to an attribute in the parent group of the referencing node 
 ```
 {
   "attributes": {
@@ -101,7 +101,7 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
       }
     ],
     "ref": {
-      "node": "../parent_group",
+      "node": "..",
       "attribute": "/attributes/interesting_thing"
     }
   }

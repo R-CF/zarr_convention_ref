@@ -11,7 +11,7 @@
       }
     ],
     "ref": {
-      "node": "../parent_group",
+      "node": "..",
       "attribute": "/attributes/interesting_thing"
     }
   }
