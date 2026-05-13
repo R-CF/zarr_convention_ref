@@ -129,6 +129,19 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
 
 ## Known Implementations
 
+### Libraries and Tools
+
+- **[Coordinate Set Convention](https://github.com/R-CF/zarr_conventions_cs)** - GeoZarr convention for coordinate sets
+  - Language: JSON
+  - Status: Proposal
+  - Maintainer: @pvanlaake
+  - Since: 2026-03-01
+- **[Geolocation Convention](https://github.com/R-CF/zarr_conventions_geolocation)** - GeoZarr convention for geolocating arrays
+  - Language: JSON
+  - Status: Proposal
+  - Maintainer: @pvanlaake
+  - Since: 2026-05-08
+
 _If you implement or use this convention, please add your implementation to this list by opening an issue or submitting a pull request._
 
 ## Acknowledgements
