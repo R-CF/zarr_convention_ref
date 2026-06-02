@@ -10,7 +10,7 @@
 
 ## Description
 
-This convention defines a mechanism to reference external objects from a referencing array or group. "External" means that the referenced object is defined in another group or array, either in the store of the referencing group or array or in another store. The referenced object may be an array, a group, or an item in a `zarr.json` file.
+This convention defines a mechanism to reference external node from the attributes of a referencing node (array or group). "External" means that the referenced node is defined elsewhere in the store of the referencing node or in another store. The referenced object may be an array, a group, or an item in a `zarr.json` file.
 
 The interpretation of the referenced object is application-specific and not defined in this convention.
 
@@ -64,7 +64,11 @@ The Uniform Resource Identifier of an external Zarr store, compliant with [RFC 3
 This field MUST NOT be provided if the referenced node is located in the current Zarr store.
 
 #### node
-Path to a referenced node, either in the current store or in the store identified by the `uri` field. If the node is in the current store, it is a relative path from the referencing node. If the node is in a Zarr store identified by the `uri` field, the path is absolute from the root of the referenced Zarr store.
+Path to a referenced node, either in the current store or in the store identified by the `uri` field.
+
+If the node is in the current store, it is a relative path from the referencing node. The relative path follows RFC 3986, so parent nodes are indicated by `".."`. A sibling node to the current node is thus specified as `"../sibling"`. 
+
+If the node is in a different Zarr store identified by the `uri` field, the path is absolute from the root of the referenced Zarr store so it always starts with a slash `"/"`.
 
 #### attribute
 JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON pointer MUST follow the format described in [RFC 6901](https://datatracker.ietf.org/doc/html/rfc6901). The JSON pointer MUST therefore be fully-qualified and start from the root of the `zarr.json` file of the referenced node, for example `"attribute": "/attributes/object/property"`.
@@ -136,7 +140,7 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
   - Status: Proposal
   - Maintainer: @pvanlaake
   - Since: 2026-03-01
-- **[Geolocation Convention](https://github.com/R-CF/zarr_conventions_geolocation)** - GeoZarr convention for geolocating arrays
+- **[Geolocation Convention](https://github.com/R-CF/zarr_conventions_geolocation)** - GeoZarr convention for curvilinear grids
   - Language: JSON
   - Status: Proposal
   - Maintainer: @pvanlaake
@@ -144,6 +148,3 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
 
 _If you implement or use this convention, please add your implementation to this list by opening an issue or submitting a pull request._
 
-## Acknowledgements
-
-This template is based on the [STAC extensions template](https://github.com/stac-extensions/template/blob/main/README.md).
