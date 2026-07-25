@@ -5,7 +5,7 @@
 - **Schema URL**: "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/schema.json"
 - **Spec URL**: "https://raw.githubusercontent.com/R-CF/zarr_convention_ref/main/README.md"
 - **Scope**: Array, Group
-- **Extension Maturity Classification**: Proposal
+- **Extension Maturity Classification**: Pilot
 - **Owner**: @pvanlaake
 
 ## Description
@@ -137,7 +137,7 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
 
 - **[Coordinate Set Convention](https://github.com/R-CF/zarr_conventions_cs)** - GeoZarr convention for coordinate sets
   - Language: JSON
-  - Status: Proposal
+  - Status: Pilot
   - Maintainer: @pvanlaake
   - Since: 2026-03-01
 - **[Geolocation Convention](https://github.com/R-CF/zarr_conventions_geolocation)** - GeoZarr convention for curvilinear grids
@@ -145,6 +145,16 @@ JSON pointer to an item in the `zarr.json` file of the referenced node. The JSON
   - Status: Proposal
   - Maintainer: @pvanlaake
   - Since: 2026-05-08
+- **[zarr](https://github.com/R-CF/zarr)** - R package for Zarr
+  - Language: R
+  - Status: Released
+  - Maintainer: @pvanlaake
+  - Since: 2026-04-25
+- **[xarray-zarr-xgroup](https://github.com/pvanlaake/xarray-zarr-xgroup)** - XArray backend for GeoZarr support with cross-group referencing
+  - Language: Python
+  - Status: Released
+  - Maintainer: @pvanlaake
+  - Since: 2026-06-15
 
 _If you implement or use this convention, please add your implementation to this list by opening an issue or submitting a pull request._
 
